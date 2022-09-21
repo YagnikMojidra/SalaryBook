@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="/static/css/bdetail.css">
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+</head>
+
+<body>
+    <!-- for basic page -->
+    <div class="container mt-2">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h2>Manage <b>Business</b> Details</h2>
+                    </div>
+                    <div class="col-sm-6">
+                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addbusinessModal"><i
+                                class="material-icons">&#xE147;</i> <span>Add New Business</span></button>
+                        <!-- <button class="btn btn-danger" data-toggle="modal" data-target="#deleteBusinessModal-{{forloop.counter}}"><i
+                                class="material-icons">&#xE147;</i> <span>Delete Business</span></button> -->
+                    </div>
+                </div>
+            </div>
+
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>
+                            <span class="custom-checkbox">
+                                <input type="checkbox" id="selectAll">
+                                <label for="selectAll"></label>
+                            </span>
+                        </th>
+                        <th>Business Name</th>
+                        <th>Business Address</th>
+                        <th>Business Phone Number</th>
+                        <th>Business Owner Name</th>
+                        <th>Business Email</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for b in busin %}
+                    <tr>
+                        <td>
+                            <span class="custom-checkbox">
+                                <input type="checkbox" id="checkbox1" name="options[]" value="1">
+                                <label for="checkbox1"></label>
+                            </span>
+                        </td>
+                        <td>{{b.business_name}}</td>
+                        <td>{{b.business_address}}</td>
+                        <td>{{b.business_mobile_number}}</td> 
+                        <td>{{b.business_owner_name}}</td>
+                        <td>{{b.business_mail}}</td>
+                        <td>
+                            <button class="btn btn-info" data-toggle="modal" data-target="#editBusinessModal" ><i
+                                    class="material-icons">&#xE254;</i> <span>Edit Business</span></button>
+                            <button class="btn btn-danger " data-toggle="modal" data-target="#deleteBusinessModal-{{forloop.counter}}"><i
+                                    class="material-icons">&#xE147;</i> <span>Delete Business</span></button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- add Modal HTML -->
+    <div id="addbusinessModal" class="modal fade" role="dialog" style="z-index: 10;" tabindex="-1" aria-labelledby="businessModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="/accounts/business_details/add/" method="post">
+
+                    {% csrf_token %}
+                    <div class="modal-header">
+                        <h4 class="modal-title">Add Another Business</h4>
+                        <button type="button" class="close" data-dismiss="businessModal" aria-hidden="true">&times;</button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Business Name</label>
+                            <input name="bname" type="text" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Business Email</label>
+                            <input name="bemail" type="email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Business Address</label>
+                            <textarea name="baddress" class="form-control" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Business Phone</label>
+                            <input name="bphone" type="text" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Business Owner Name</label>
+                            <input name="bownname" type="text" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-success" value="Add">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- edit modal HTML -->
+    <div id="editBusinessModal" class="modal fade" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" >
+            <div class="modal-content">
+                {% for b in busino %}
+                <form action="/accounts/business_details/editbd/">
+                    <!-- {% csrf_token %} -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Edit Business Details</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Business Name</label>
+                            <input name="bname" value="{{b.business_name}}" type="text" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Business Email</label>
+                            <input name="bemail" value="{{b.business_email}}" type="email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Business Address</label>
+                            <textarea name="baddress" value="{{b.business_address}}" class="form-control" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Business Phone</label>
+                            <input name="bphone" value="{{b.business_mobile_number}}" type="text" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Business Owner Name</label>
+                            <input name="bownname" value="{{b.business_owner_name}}" type="text" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-success" value="Add">
+                    </div>
+                </form>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- delete Modal HTML -->
+    {% for b in busin %}
+    <div id="deleteBusinessModal-{{forloop.counter}}" class="modal fade" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="/accounts/business/delete/{{b.id}}/" method="post" >
+                    {% csrf_token %}
+                    <div class="modal-header">
+                        <h4 class="modal-title">Delete Employee</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure you want to delete these Records?</p>
+                        <p class="text-danger"><small>This action can Delete All the records of <strong> {{b.business_name}} </strong>be
+                                undone.</small></p>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                        <input type="submit" class="btn btn-danger" value="Delete">
+                        <!-- <a type="submit" class="btn btn-danger" href="/accounts/business/delete/{{b.id}}/">Delete</a> -->
+                        
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+</body>
+
+<script src="/static/js/bdetail.js"></script>
+
+</html>
