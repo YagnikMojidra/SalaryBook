@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{title}}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <style>
+        body {
+            color: #566787;
+            background: #f5f5f5;
+            font-family: 'Varela Round', sans-serif;
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container"style="background-color:rgba(245, 245, 245, 0.996);">
+        <h4 class="display-5 text-center">Employees Salary Details</h4>
+        <table class="table table-dark table-hover container mt-5 text-center">
+            <thead>
+                <tr>
+                    <th scope="col">Sr.No</th>
+                    <th scope="col">Employees Name</th>
+                    <th scope="col">Employees Per Day Salary</th>
+                    <th scope="col">Total Withdraw Amount</th>
+                    <th scope="col">Total Attandance</th>
+                    <th scope="col">Total Salary Amount</th>
+                    <th scope="col">Net Salary Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for key,value in record.items %}
+                <tr>
+                    <td scope="col">{{forloop.counter}}</td>
+                    <td scope="col">{{ value.0 }}</td>
+                    <td scope="col">{{ value.3 }}</td>
+                    <td scope="col">{{ value.1 }}</td>
+                    <td scope="col">{{ value.4 }}</td>
+                    <td scope="col">{{ value.5 }}</td>
+                    <td scope="col">{{ value.6 }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+        <a href="/accounts/owner/" class="btn btn-danger ">Back</a>
+    </div>
+
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+    crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
+
+</html>

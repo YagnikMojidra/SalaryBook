@@ -1,0 +1,71 @@
+{% extends 'basic.html' %}
+{% block content %}
+<div class="container p-5 mt-5 " style="border:15px solid black;border-radius: 20px 20px;background-color:#f6f6f6;">
+    <div class="text-center">
+        <a href="/accounts/signup"><img src="/static/images/signup.png" class="img-fluid" alt="salarybook signup"
+                style="width:310px;height:125px;background-color:None;"></a>
+    </div>
+
+    <form class="mt-4" style="background-color:rgba(245, 245, 245, 0.996);" method="post">
+        <!-- for displaying message -->
+        {% for message in messages %}
+        <div class="alert alert-danger ">
+            <strong>
+                {{message}}
+            </strong>
+        </div>
+        {% endfor %}
+
+        {% csrf_token %}
+
+        <!-- for first name -->
+        <div class="mb-3">
+            <strong><label for="exampleInputfname" class="form-label">First Name</label></strong>
+            <input type="text" class="form-control" id="exampleInputfname" name="first_name" required>
+        </div>
+
+        <!-- for last name -->
+        <div class="mb-3">
+            <strong><label for="exampleInputlname" class="form-label">Last Name</label></strong>
+            <input type="text" class="form-control" id="exampleInputlname" name="last_name" required>
+        </div>
+
+        <!-- for user name  -->
+        <div class="mb-3">
+            <strong><label for="exampleInputuname" class="form-label">UserName</label></strong>
+            <input type="text" class="form-control" id="exampleInputuname" name="user_name" required>
+        </div>
+
+        <!-- for email -->
+        <div class="mb-3">
+            <strong><label for="exampleInputEmail1" class="form-label">Email Address</label></strong>
+            <input type="email" class="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp"
+                required>
+            
+        </div>
+
+        <!-- for password -->
+        <div class="mb-3">
+            <strong><label for="inputPassword5" class="form-label">Password</label></strong>
+            <input type="password" name="pwd" id="inputPassword5" class="form-control"
+                aria-describedby="passwordHelpBlock" required>
+        </div>
+        <div class="mb-3">
+            <strong><label for="inputPassword6" class="form-label">Confirm Password</label></strong>
+            <input type="password" name="pwd2" id="inputPassword6" class="form-control" required>
+        </div>
+
+        <!-- if already account so  -->
+        <div class="mb-3">
+            <strong><a class="nav-link active" href="/accounts/login/"> Did Already have Account ? So Login here </a></strong>
+        </div>
+
+        <!-- submit button -->
+        <button type="submit" class=" btn btn-primary btn-dark btn-lg" >Submit</button>
+
+        <!-- for back button -->
+        <a href="/" class="btn btn-danger  btn-lg">Back</a>
+    </form>
+</div>
+
+{% endblock %}
